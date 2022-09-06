@@ -29,6 +29,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     ),
     HeroesModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

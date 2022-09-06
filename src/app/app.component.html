@@ -4,5 +4,8 @@
   <a class="button" routerLink="/heroes" routerLinkActive="activebutton">Heroes</a>
   <a class="button" routerLink="/crisis-list" routerLinkActive="activebutton">Crisis Center</a>
 </nav>
-<router-outlet></router-outlet>
-<app-messages></app-messages>
+<div [@routeAnimation]="getAnimationData()">
+  <router-outlet></router-outlet>
+</div>
+
+<!--  <app-messages></app-messages>-->
