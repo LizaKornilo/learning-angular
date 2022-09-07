@@ -1,22 +1,32 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { HeroesComponent } from './heroes/heroes.component';
-import {DashboardComponent} from "./dashboard/dashboard.component";
-import {HeroDetailComponent} from "./hero-detail/hero-detail.component";
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
+import {DashboardComponent} from "./heroes/dashboard/dashboard.component";
 import {NotFoundComponent} from "./not-found/not-found.component";
-import {HeroResolverService} from "./hero-resolver.service";
+import {HeroResolverService} from "./heroes/hero-resolver.service";
+import {ComposeMessageComponent} from "./compose-message/compose-message.component";
+import {AuthGuard} from "./auth/auth.guard";
+import {SelectivePreloadingStrategyService} from "./selective-preloading-strategy.service";
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canLoad: [AuthGuard]},
+  { path: 'crisis-center', loadChildren: () => import('./crisis-center/crises.module').then(m => m.CrisesModule), data: { preload: true } },
+  { path: 'compose', component: ComposeMessageComponent, outlet: 'popup' },
+  { path: '', redirectTo: '/superheroes', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'detail/:id', component: HeroDetailComponent, resolve: { hero: HeroResolverService } },
-  { path: 'heroes', component: HeroesComponent },
-  {path: '404', component: NotFoundComponent},
-  {path: '**', redirectTo: '/404'}
+  // { path: '404', component: NotFoundComponent },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(
+      routes,
+      {
+        // enableTracing: true,
+        preloadingStrategy: SelectivePreloadingStrategyService,
+      }
+    )
+  ],
   exports: [RouterModule],
   providers: [HeroResolverService]
 })
