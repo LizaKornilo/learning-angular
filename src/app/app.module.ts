@@ -13,7 +13,6 @@ import { HeroesModule } from './heroes/heroes.module';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CrisesModule} from "./crisis-center/crises.module";
 import { ComposeMessageComponent } from './compose-message/compose-message.component';
-import {AdminModule} from "./admin/admin.module";
 import {AuthModule} from "./auth/auth.module";
 
 @NgModule({
@@ -22,7 +21,6 @@ import {AuthModule} from "./auth/auth.module";
     MessagesComponent,
     NotFoundComponent,
     ComposeMessageComponent,
-    // LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +31,6 @@ import {AuthModule} from "./auth/auth.module";
     ),
     HeroesModule,
     CrisesModule,
-    AdminModule,
     AuthModule,
     AppRoutingModule,
     BrowserAnimationsModule,
