@@ -11,7 +11,6 @@ import {HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api";
 import {InMemoryDataService} from "./in-memory-data.service";
 import { HeroesModule } from './heroes/heroes.module';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {CrisesModule} from "./crisis-center/crises.module";
 import { ComposeMessageComponent } from './compose-message/compose-message.component';
 import {AuthModule} from "./auth/auth.module";
 
@@ -30,7 +29,6 @@ import {AuthModule} from "./auth/auth.module";
       InMemoryDataService, { dataEncapsulation: false }
     ),
     HeroesModule,
-    CrisesModule,
     AuthModule,
     AppRoutingModule,
     BrowserAnimationsModule,
