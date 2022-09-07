@@ -13,6 +13,9 @@ import { HeroesModule } from './heroes/heroes.module';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CrisesModule} from "./crisis-center/crises.module";
 import { ComposeMessageComponent } from './compose-message/compose-message.component';
+import {AdminModule} from "./admin/admin.module";
+import { LoginComponent } from './auth/login/login.component';
+import {AuthRoutingModule} from "./auth/auth-routing.module";
 
 @NgModule({
   declarations: [
@@ -20,6 +23,7 @@ import { ComposeMessageComponent } from './compose-message/compose-message.compo
     MessagesComponent,
     NotFoundComponent,
     ComposeMessageComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +34,8 @@ import { ComposeMessageComponent } from './compose-message/compose-message.compo
     ),
     HeroesModule,
     CrisesModule,
+    AdminModule,
+    AuthRoutingModule,
     AppRoutingModule,
     BrowserAnimationsModule,
   ],
