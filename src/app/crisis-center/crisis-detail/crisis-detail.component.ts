@@ -5,6 +5,7 @@ import {switchMap, tap} from 'rxjs/operators';
 import {CrisisService} from "../crisis.service";
 import {Observable} from "rxjs";
 import {Location} from "@angular/common";
+import {DialogService} from "../../dialog.service";
 
 @Component({
   selector: 'app-crisis-detail',
@@ -12,15 +13,26 @@ import {Location} from "@angular/common";
   styleUrls: ['./crisis-detail.component.css']
 })
 export class CrisisDetailComponent implements OnInit {
-  crisis?: Crisis
+  crisis!: Crisis
+  editName = '';
   crisis$?: Observable<Crisis>
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private service: CrisisService,
-    private location: Location
+    private location: Location,
+    private dialogService: DialogService,
   ) { }
+
+   cancel() {
+    this.gotoCrises();
+  }
+
+  save() {
+    this.crisis!.name = this.editName;
+    this.gotoCrises();
+  }
 
   gotoCrises() {
     const crisisId = this.crisis ? this.crisis.id : null;
@@ -42,7 +54,16 @@ export class CrisisDetailComponent implements OnInit {
       switchMap((params: ParamMap) =>
         this.service.getCrisis(Number(params.get('id'))))
     )
-    this.crisis$.subscribe(crisis => this.crisis = crisis)
+    this.crisis$.subscribe(crisis => {
+      this.crisis = crisis;
+      this.editName = crisis.name;
+    })
   }
 
+  canDeactivate(): Observable<boolean> | boolean {
+    if (!this.crisis || this.crisis.name === this.editName) {
+      return true;
+    }
+    return this.dialogService.confirm('Discard changes?');
+  }
 }
