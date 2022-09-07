@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Crisis } from '../crisis';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import {switchMap, tap} from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router';
 import {CrisisService} from "../crisis.service";
 import {Observable} from "rxjs";
 import {Location} from "@angular/common";
@@ -15,7 +14,6 @@ import {DialogService} from "../../dialog.service";
 export class CrisisDetailComponent implements OnInit {
   crisis!: Crisis
   editName = '';
-  crisis$?: Observable<Crisis>
 
   constructor(
     private route: ActivatedRoute,
@@ -50,14 +48,12 @@ export class CrisisDetailComponent implements OnInit {
     //   //   : this.router.navigateByUrl('/404')
     //   );
 
-    this.crisis$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>
-        this.service.getCrisis(Number(params.get('id'))))
-    )
-    this.crisis$.subscribe(crisis => {
-      this.crisis = crisis;
-      this.editName = crisis.name;
-    })
+    this.route.data
+      .subscribe(data => {
+        const crisis: Crisis = data['crisis'];
+        this.editName = crisis.name;
+        this.crisis = crisis;
+      });
   }
 
   canDeactivate(): Observable<boolean> | boolean {
