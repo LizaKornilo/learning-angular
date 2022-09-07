@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canLoad: [AuthGuard]},
   { path: 'crisis-center', loadChildren: () => import('./crisis-center/crises.module').then(m => m.CrisesModule), data: { preload: true } },
   { path: 'compose', component: ComposeMessageComponent, outlet: 'popup' },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/superheroes', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   // { path: '404', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent }
