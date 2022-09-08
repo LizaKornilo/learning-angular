@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Hero} from "../hero";
+import {IHero} from "../IHero";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {HeroService} from "../hero.service";
 import { Location } from '@angular/common';
@@ -12,8 +12,8 @@ import {filter, Observable, switchMap} from "rxjs";
 })
 export class HeroDetailComponent implements OnInit {
 
-  hero?: Hero
-  hero$?: Observable<Hero>
+  hero?: IHero
+  hero$?: Observable<IHero>
 
   constructor(
     private route: ActivatedRoute,
