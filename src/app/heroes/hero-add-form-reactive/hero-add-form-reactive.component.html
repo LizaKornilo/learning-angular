@@ -1,0 +1,34 @@
+<form class="form" [formGroup]="heroAddForm" #formDirective="ngForm" (ngSubmit)="submit()">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Reactive Hero Add Form</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Hero name</mat-label>
+        <input formControlName="heroName" matInput placeholder="name">
+      </mat-form-field>
+      <mat-error *ngIf="heroAddForm.controls.heroName.hasError('required')">
+        Name is required.
+      </mat-error>
+
+      <mat-form-field  class="full-width" appearance="fill">
+        <mat-label>Hero power</mat-label>
+        <mat-select formControlName="heroPower" placeholder="power">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let power of powers" [value]="power">{{ power }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-card-actions class="btns">
+        <button mat-raised-button type='button' (click)="log()">log formGroup info</button>
+        <button mat-raised-button type='button' (click)="reset()">Reset</button>
+        <button mat-raised-button color="primary" [disabled]="!heroAddForm.valid" type="submit">Add hero</button>
+      </mat-card-actions>
+
+    </mat-card-content>
+
+  </mat-card>
+</form>

@@ -1,16 +1,6 @@
 <h2>HEROES</h2>
 
-<div>
-  <label for="new-hero-name">Hero name: </label>
-  <input id="new-hero-name" #heroName />
-
-  <label for="new-hero-power">Hero power: </label>
-  <input id="new-hero-power" #heroPower />
-
-  <button type="button" class="add-button" (click)="add(heroName.value, heroPower.value); heroName.value=''; heroPower.value=''">
-    Add hero
-  </button>
-</div>
+<app-hero-add-form-reactive [heroes]="heroes"></app-hero-add-form-reactive>
 
 <ul class="heroes">
   <li *ngFor="let hero of heroes">
