@@ -14,6 +14,11 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ComposeMessageComponent } from './compose-message/compose-message.component';
 import {AuthModule} from "./auth/auth.module";
 
+import {StoreModule} from "@ngrx/store";
+import {appReducers} from "./store/reducers/app.reducers";
+import {environment} from "../environments/environment";
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +37,9 @@ import {AuthModule} from "./auth/auth.module";
     AuthModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+
+    StoreModule.forRoot(appReducers),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [],
   bootstrap: [AppComponent]
