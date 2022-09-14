@@ -4,6 +4,11 @@
   <div>
     <label for="hero-name">Hero name: </label>
     <input id="hero-name" [(ngModel)]="hero.name" placeholder="name">
+
+    <label for="hero-power">Hero power: </label>
+    <input id="hero-power" [(ngModel)]="hero.power" placeholder="power">
+
+<!--    <div>power: {{hero.power ? hero.power : 'no power'}}</div>-->
     <button type="button" (click)="save()">save</button>
   </div>
 </div>

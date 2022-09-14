@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -13,6 +13,7 @@ import { HeroesModule } from './heroes/heroes.module';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ComposeMessageComponent } from './compose-message/compose-message.component';
 import {AuthModule} from "./auth/auth.module";
+import {NgxFormlyFormModule} from "./ngx-formly-form/ngx-formly-form.module";
 
 @NgModule({
   declarations: [
@@ -32,6 +33,8 @@ import {AuthModule} from "./auth/auth.module";
     AuthModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+
+    NgxFormlyFormModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
