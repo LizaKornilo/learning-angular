@@ -7,6 +7,7 @@ import {HeroDetailComponent} from "./hero-detail/hero-detail.component";
 import {HeroSearchComponent} from "./hero-search/hero-search.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {FormsModule} from "@angular/forms";
+import { TopHeroesComponent } from './top-heroes/top-heroes.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import {FormsModule} from "@angular/forms";
     HeroDetailComponent,
     HeroSearchComponent,
     DashboardComponent,
+    TopHeroesComponent,
   ],
   imports: [
     CommonModule,
