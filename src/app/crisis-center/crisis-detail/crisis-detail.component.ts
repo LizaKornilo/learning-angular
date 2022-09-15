@@ -1,10 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Crisis } from '../crisis';
 import { Router, ActivatedRoute } from '@angular/router';
 import {CrisisService} from "../crisis.service";
-import {Observable} from "rxjs";
-import {Location} from "@angular/common";
+import {Observable, Subscription, tap} from "rxjs";
 import {DialogService} from "../../dialog.service";
+import {IAppState} from "../../store/state/app.state";
+import {select, Store} from "@ngrx/store";
+import {selectCurrentCrisis} from "../../store/selectors/crisis.selector";
 
 @Component({
   selector: 'app-crisis-detail',
@@ -12,18 +14,20 @@ import {DialogService} from "../../dialog.service";
   styleUrls: ['./crisis-detail.component.css']
 })
 export class CrisisDetailComponent implements OnInit {
-  crisis!: Crisis
+  crisis$ = this._store.pipe(select(selectCurrentCrisis))
+  subscription?: Subscription = new Subscription();
+  crisis!: Crisis | null;
   editName = '';
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private service: CrisisService,
-    private location: Location,
     private dialogService: DialogService,
+    private _store: Store<IAppState>
   ) { }
 
-   cancel() {
+  cancel() {
     this.gotoCrises();
   }
 
@@ -34,26 +38,16 @@ export class CrisisDetailComponent implements OnInit {
 
   gotoCrises() {
     const crisisId = this.crisis ? this.crisis.id : null;
-    // Relative navigation back to the crises
     this.router.navigate(['../', { id: crisisId, foo: 'foo' }], { relativeTo: this.route });
-    // this.location.back()
   }
 
   ngOnInit() {
-    // const id: number = Number(this.route.snapshot.paramMap.get('id'));
-    // this.service.getCrisis(id)
-    //   .subscribe(crisis => this.crisis = crisis
-    //   // .subscribe(crisis => crisis
-    //   //   ? this.crisis = crisis
-    //   //   : this.router.navigateByUrl('/404')
-    //   );
-
-    this.route.data
-      .subscribe(data => {
-        const crisis: Crisis = data['crisis'];
-        this.editName = crisis.name;
+    this.subscription!.add(
+      this.crisis$.subscribe((crisis) => {
         this.crisis = crisis;
-      });
+        this.editName = crisis!.name;
+      })
+    )
   }
 
   canDeactivate(): Observable<boolean> | boolean {
@@ -61,5 +55,9 @@ export class CrisisDetailComponent implements OnInit {
       return true;
     }
     return this.dialogService.confirm('Discard changes?');
+  }
+
+  ngOnDestroy() {
+     // this.subscription?.unsubscribe()
   }
 }

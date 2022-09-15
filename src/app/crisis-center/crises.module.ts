@@ -7,6 +7,7 @@ import {CrisisDetailComponent} from "./crisis-detail/crisis-detail.component";
 import { CrisisCenterComponent } from './crisis-center/crisis-center.component';
 import { CrisisCenterHomeComponent } from './crisis-center-home/crisis-center-home.component';
 import {CrisisListComponent} from "./crisis-list/crisis-list.component";
+import { CrisisListContainerComponent } from './crisis-list-container/crisis-list-container.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import {CrisisListComponent} from "./crisis-list/crisis-list.component";
     CrisisCenterComponent,
     CrisisListComponent,
     CrisisCenterHomeComponent,
-    CrisisDetailComponent
+    CrisisDetailComponent,
+    CrisisListContainerComponent
   ],
   imports: [
     CommonModule,

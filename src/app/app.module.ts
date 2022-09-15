@@ -19,6 +19,8 @@ import {appReducers} from "./store/reducers/app.reducers";
 import {environment} from "../environments/environment";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {StoreRouterConnectingModule} from "@ngrx/router-store";
+import {EffectsModule} from "@ngrx/effects";
+import {CrisisEffects} from "./store/effects/crisis.effects";
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import {StoreRouterConnectingModule} from "@ngrx/router-store";
     BrowserAnimationsModule,
 
     StoreModule.forRoot(appReducers),
+    EffectsModule.forRoot(([CrisisEffects])),
     StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
