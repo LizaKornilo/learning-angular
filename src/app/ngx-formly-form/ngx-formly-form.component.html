@@ -1,0 +1,5 @@
+ <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+   <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+   <button mat-button type="submit">Submit</button>
+ </form>
+ <pre>{{model | json}}</pre>

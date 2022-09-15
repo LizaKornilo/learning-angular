@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Hero} from "../hero";
+import {IHero} from "../IHero";
 
 @Component({
   selector: 'app-top-heroes',
@@ -7,7 +7,7 @@ import {Hero} from "../hero";
   styleUrls: ['./top-heroes.component.css']
 })
 export class TopHeroesComponent {
-  @Input() topHeroes?: Hero[];
+  @Input() topHeroes?: IHero[];
 
   constructor() { }
 }

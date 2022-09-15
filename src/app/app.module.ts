@@ -13,6 +13,7 @@ import { HeroesModule } from './heroes/heroes.module';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ComposeMessageComponent } from './compose-message/compose-message.component';
 import {AuthModule} from "./auth/auth.module";
+import {NgxFormlyFormModule} from "./ngx-formly-form/ngx-formly-form.module";
 
 import {StoreModule} from "@ngrx/store";
 import {appReducers} from "./store/reducers/app.reducers";
@@ -45,6 +46,8 @@ import {CrisisEffects} from "./store/effects/crisis.effects";
     EffectsModule.forRoot(([CrisisEffects])),
     StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+
+    NgxFormlyFormModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

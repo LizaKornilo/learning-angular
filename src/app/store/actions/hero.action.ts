@@ -1,5 +1,5 @@
 import {Action} from "@ngrx/store";
-import {Hero} from "../../heroes/hero";
+import {IHero} from "../../heroes/IHero";
 
 export enum EHeroAction {
   GetHeroes = '[Hero] Get Heroes',
@@ -14,7 +14,7 @@ export class GetHeroes implements Action {
 
 export class GetHeroesSuccess implements Action {
   public readonly type = EHeroAction.GetHeroesSuccess;
-  constructor(public payload: Hero[]) {}
+  constructor(public payload: IHero[]) {}
 }
 
 export class GetCurrentHero implements Action {
@@ -24,7 +24,7 @@ export class GetCurrentHero implements Action {
 
 export class GetCurrentHeroSuccess implements Action {
   public readonly type = EHeroAction.GetCurrentHeroSuccess;
-  constructor(public payload: Hero) {}
+  constructor(public payload: IHero) {}
 }
 
 export type HeroActions = GetHeroes | GetHeroesSuccess | GetCurrentHero | GetCurrentHeroSuccess;

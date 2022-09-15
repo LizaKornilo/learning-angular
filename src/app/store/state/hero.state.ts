@@ -1,8 +1,8 @@
-import {Hero} from "../../heroes/hero";
+import {IHero} from "../../heroes/IHero";
 
 export interface IHeroState {
-  heroes: Hero[] | null;
-  currentHero: Hero | null;
+  heroes: IHero[] | null;
+  currentHero: IHero | null;
 }
 
 export const initialHeroState: IHeroState = {
