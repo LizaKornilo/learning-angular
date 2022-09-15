@@ -3,6 +3,7 @@ import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {concatMap, map, switchMap} from "rxjs/operators";
 import {catchError, EMPTY, Observable} from 'rxjs'
 import {
+  AddHero, AddHeroSuccess,
   EHeroAction,
   GetCurrentHero,
   GetCurrentHeroSuccess,
@@ -45,6 +46,18 @@ export class HeroEffects {
       concatMap((actionData: { payload: IHero }) => {
         return this._heroService.updateHero(actionData.payload).pipe(
           map(() => new UpdateHeroSuccess(actionData.payload)),
+          catchError(error => EMPTY)
+        )
+      })
+    )
+  })
+
+  addHero$ = createEffect((): Observable<HeroActions> => {
+    return this._actions$.pipe(
+      ofType<AddHero>(EHeroAction.AddHero),
+      concatMap((actionData: { payload: IHero }) => {
+        return this._heroService.addHero(actionData.payload).pipe(
+          map(() => new AddHeroSuccess(actionData.payload)),
           catchError(error => EMPTY)
         )
       })

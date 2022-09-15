@@ -31,6 +31,14 @@ export const heroReducers = (
         currentHero: action.payload
       };
     }
+    case EHeroAction.AddHeroSuccess: {
+      return {
+        ...state,
+        heroes: state.heroes
+          ? [...state.heroes, { ...action.payload, id: state.heroes[state.heroes.length - 1].id + 1}]
+          : [{...action.payload, id: 1}],
+      };
+    }
 
     default:
       return state;

@@ -8,6 +8,8 @@ export enum EHeroAction {
   GetCurrentHeroSuccess = '[Hero] Get Current Hero Success',
   UpdateHero = '[Hero] Update Hero',
   UpdateHeroSuccess = '[Hero] Update Hero Success',
+  AddHero = '[Hero] Add Hero',
+  AddHeroSuccess = '[Hero] Add Hero Success',
 }
 
 export class GetHeroes implements Action {
@@ -39,4 +41,17 @@ export class UpdateHeroSuccess implements Action {
   constructor(public payload: IHero) {}
 }
 
-export type HeroActions = GetHeroes | GetHeroesSuccess | GetCurrentHero | GetCurrentHeroSuccess | UpdateHero | UpdateHeroSuccess;
+export class AddHero implements Action {
+  public readonly type = EHeroAction.AddHero;
+  constructor(public payload: IHero) {}
+}
+
+export class AddHeroSuccess implements Action {
+  public readonly type = EHeroAction.AddHeroSuccess;
+  constructor(public payload: IHero) {}
+}
+
+export type HeroActions = GetHeroes | GetHeroesSuccess
+  | GetCurrentHero | GetCurrentHeroSuccess
+  | UpdateHero | UpdateHeroSuccess
+  | AddHero | AddHeroSuccess;

@@ -1,8 +1,10 @@
 
 import {Component, Input, OnInit} from '@angular/core';
-import {HeroService} from "../hero.service";
 import {IHero} from "../IHero";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Store} from "@ngrx/store";
+import {IAppState} from "../../store/state/app.state";
+import {AddHero} from "../../store/actions/hero.action";
 
 @Component({
   selector: 'app-hero-add-form-reactive',
@@ -19,7 +21,7 @@ export class HeroAddFormReactiveComponent implements OnInit {
      heroPower: new FormControl(''),
   })
 
-  constructor(private heroService: HeroService,) {}
+  constructor(private _store: Store<IAppState>) {}
 
   ngOnInit(): void {
   }
@@ -32,9 +34,7 @@ export class HeroAddFormReactiveComponent implements OnInit {
     const name = this.heroAddForm.value.heroName?.trim();
     const power = this.heroAddForm.value.heroPower?.trim();
     if (!name) { return; }
-    this.heroService.addHero({ name, power} as IHero).subscribe(hero => {
-      this.heroes?.push(hero)
-    });
+    this._store.dispatch(new AddHero({ name, power} as IHero))
   }
 
   reset(): void {
