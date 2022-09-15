@@ -6,8 +6,8 @@ import { Location } from '@angular/common';
 import { Observable, Subscription} from "rxjs";
 import {select, Store} from "@ngrx/store";
 import {IAppState} from "../../store/state/app.state";
+import {GetCurrentHero, UpdateHero} from "../../store/actions/hero.action";
 import {selectCurrentHero} from "../../store/selectors/hero.selector";
-import {GetCurrentHero} from "../../store/actions/hero.action";
 
 @Component({
   selector: 'app-hero-detail',
@@ -33,14 +33,14 @@ export class HeroDetailComponent implements OnInit {
       this.route.paramMap.subscribe((params: ParamMap) => this._store.dispatch(new GetCurrentHero(Number(params.get('id')))))
     );
     this.subscription.add(
-      this.hero$?.subscribe(hero => this.hero = hero)
+      this.hero$?.subscribe(hero => this.hero = JSON.parse(JSON.stringify(hero)))
     );
   }
 
   save(): void {
     if (this.hero) {
-      this.heroService.updateHero(this.hero)
-        .subscribe(() => this.goBack());
+      this._store.dispatch(new UpdateHero(this.hero))
+      this.goBack()
     }
   }
 
