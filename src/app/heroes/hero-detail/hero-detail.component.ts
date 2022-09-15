@@ -1,54 +1,25 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {IHero} from "../IHero";
-import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {HeroService} from "../hero.service";
-import { Location } from '@angular/common';
-import { Observable, Subscription} from "rxjs";
-import {select, Store} from "@ngrx/store";
-import {IAppState} from "../../store/state/app.state";
-import {GetCurrentHero, UpdateHero} from "../../store/actions/hero.action";
-import {selectCurrentHero} from "../../store/selectors/hero.selector";
 
 @Component({
   selector: 'app-hero-detail',
   templateUrl: './hero-detail.component.html',
   styleUrls: ['./hero-detail.component.css']
 })
-export class HeroDetailComponent implements OnInit {
-  hero$?: Observable<IHero | null> = this._store.pipe(select(selectCurrentHero))
-  subscription?: Subscription;
-  hero?: IHero | null
+export class HeroDetailComponent {
+  @Input() hero?: IHero | null;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private heroService: HeroService,
-    private _store: Store<IAppState>,
-    private location: Location,
-  ) {}
+  @Output('onSave')
+  onSaveEmitter = new EventEmitter();
 
-  ngOnInit(): void {
-    this.subscription = new Subscription()
-    this.subscription.add(
-      this.route.paramMap.subscribe((params: ParamMap) => this._store.dispatch(new GetCurrentHero(Number(params.get('id')))))
-    );
-    this.subscription.add(
-      this.hero$?.subscribe(hero => this.hero = JSON.parse(JSON.stringify(hero)))
-    );
-  }
+  @Output('goBack')
+  goBackEmitter = new EventEmitter();
 
-  save(): void {
-    if (this.hero) {
-      this._store.dispatch(new UpdateHero(this.hero))
-      this.goBack()
-    }
+  save(hero: IHero): void {
+    this.onSaveEmitter.emit(hero);
   }
 
   goBack(): void {
-    this.location.back();
-  }
-
-  ngOnDestroy() {
-    this.subscription?.unsubscribe()
+    this.goBackEmitter.emit();
   }
 }

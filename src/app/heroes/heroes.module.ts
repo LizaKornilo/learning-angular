@@ -14,11 +14,13 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 import { HeroAddFormReactiveComponent } from './hero-add-form-reactive/hero-add-form-reactive.component';
 import {MatCardModule} from "@angular/material/card";
 import { TopHeroesComponent } from './top-heroes/top-heroes.component';
+import {HeroDetailSmartComponent} from "./hero-detail/hero-detail.smart.component";
 
 
 @NgModule({
   declarations: [
     HeroListComponent,
+    HeroDetailSmartComponent,
     HeroDetailComponent,
     HeroSearchComponent,
     DashboardComponent,
