@@ -1,9 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IHero} from "../IHero";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {HeroService} from "../hero.service";
 import { Location } from '@angular/common';
-import {filter, Observable, switchMap} from "rxjs";
+import { Observable, Subscription} from "rxjs";
+import {select, Store} from "@ngrx/store";
+import {IAppState} from "../../store/state/app.state";
+import {selectCurrentHero} from "../../store/selectors/hero.selector";
+import {GetCurrentHero} from "../../store/actions/hero.action";
 
 @Component({
   selector: 'app-hero-detail',
@@ -11,37 +15,27 @@ import {filter, Observable, switchMap} from "rxjs";
   styleUrls: ['./hero-detail.component.css']
 })
 export class HeroDetailComponent implements OnInit {
-
-  hero?: IHero
-  hero$?: Observable<IHero>
+  hero$?: Observable<IHero | null> = this._store.pipe(select(selectCurrentHero))
+  subscription?: Subscription;
+  hero?: IHero | null
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private heroService: HeroService,
-    private location: Location
+    private _store: Store<IAppState>,
+    private location: Location,
   ) {}
 
- ngOnInit(): void {
-    this.hero$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>
-        this.heroService.getHero(Number(params.get('id'))))
-    )
-   this.hero$.subscribe(hero => this.hero = hero)
-
-   // this.getHero();
-   // this.route.data.subscribe(data  => this.hero = data['hero'])
+  ngOnInit(): void {
+    this.subscription = new Subscription()
+    this.subscription.add(
+      this.route.paramMap.subscribe((params: ParamMap) => this._store.dispatch(new GetCurrentHero(Number(params.get('id')))))
+    );
+    this.subscription.add(
+      this.hero$?.subscribe(hero => this.hero = hero)
+    );
   }
-
-  // getHero(): void {
-  //   const id = Number(this.route.snapshot.paramMap.get('id'));
-  //   this.heroService.getHero(id)
-  //     .subscribe(hero => this.hero = hero
-  //     // .subscribe(hero => hero
-  //     //   ? this.hero = hero
-  //     //   : this.router.navigateByUrl('/404')
-  //     );
-  // }
 
   save(): void {
     if (this.hero) {
@@ -52,5 +46,9 @@ export class HeroDetailComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe()
   }
 }

@@ -58,6 +58,6 @@ export class CrisisDetailComponent implements OnInit {
   }
 
   ngOnDestroy() {
-     // this.subscription?.unsubscribe()
+     this.subscription?.unsubscribe()
   }
 }

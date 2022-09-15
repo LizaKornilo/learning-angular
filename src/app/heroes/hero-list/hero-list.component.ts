@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {IHero} from "../IHero";
 import {HeroService} from "../hero.service";
-import {merge, Observable, of, Subject, switchMap} from "rxjs";
+import { Observable, Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
+import {select, Store} from "@ngrx/store";
+import {IAppState} from "../../store/state/app.state";
+import {selectHeroList} from "../../store/selectors/hero.selector";
+import {GetHeroes} from "../../store/actions/hero.action";
 
 @Component({
   selector: 'app-hero-list',
@@ -10,9 +14,12 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./hero-list.component.css']
 })
 export class HeroListComponent implements OnInit {
+  heroes$: Observable<IHero[] | null> = this._store.pipe(select(selectHeroList))
+  subscription?: Subscription;
   heroes?: IHero[];
 
   constructor(private heroService: HeroService,
+              private _store: Store<IAppState>,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -20,8 +27,13 @@ export class HeroListComponent implements OnInit {
   }
 
   getHeroes(): void {
-    this.heroService.getHeroes()
-    .subscribe(heroes => this.heroes = heroes);
+    this._store.dispatch(new GetHeroes())
+
+    this.subscription = new Subscription()
+    this.subscription.add(
+      this.heroes$
+      .subscribe(heroes => this.heroes = heroes ? heroes : [])
+    );
   }
 
   add(name: string, power: string): void {
@@ -35,5 +47,9 @@ export class HeroListComponent implements OnInit {
   delete(hero: IHero): void {
     this.heroes = this.heroes?.filter(h => h !== hero);
     this.heroService.deleteHero(hero.id).subscribe();
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe()
   }
 }
