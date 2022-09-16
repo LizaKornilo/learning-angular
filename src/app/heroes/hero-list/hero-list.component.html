@@ -1,6 +1,6 @@
 <h2>HEROES</h2>
 
-<app-hero-add-form-reactive [heroes]="heroes"></app-hero-add-form-reactive>
+<app-hero-add-form-reactive (onAdd)="add($event)"></app-hero-add-form-reactive>
 
 <ul class="heroes">
   <li *ngFor="let hero of heroes">

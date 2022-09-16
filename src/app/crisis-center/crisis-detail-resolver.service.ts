@@ -7,19 +7,26 @@ import {
 import { Observable, of, EMPTY } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { CrisisService } from './crisis.service';
 import { Crisis } from './crisis';
+import {IAppState} from "../store/state/app.state";
+import {select, Store} from "@ngrx/store";
+import {GetCrisis} from "../store/actions/crisis.action";
+import {selectCurrentCrisis} from "../store/selectors/crisis.selector";
 
 @Injectable({
   providedIn: 'root',
 })
 export class CrisisDetailResolverService implements Resolve<Crisis> {
-  constructor(private cs: CrisisService, private router: Router) {}
+  crisis$: Observable<Crisis | null> =  this._store.pipe(select(selectCurrentCrisis))
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Crisis> | Observable<never> {
+  constructor(private _store: Store<IAppState>, private router: Router) {}
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const id = Number(route.paramMap.get('id'));
 
-    return this.cs.getCrisis(id).pipe(
+    this._store.dispatch(new GetCrisis(id))
+
+    return this.crisis$.pipe(
       mergeMap(crisis => {
         if (crisis) {
           return of(crisis);

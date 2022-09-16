@@ -1,6 +1,5 @@
 
-import {Component, Input, OnInit} from '@angular/core';
-import {HeroService} from "../hero.service";
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {IHero} from "../IHero";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
@@ -10,7 +9,9 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./hero-add-form-reactive.component.css']
 })
 export class HeroAddFormReactiveComponent implements OnInit {
-  @Input() heroes?: IHero[];
+  @Output('onAdd')
+  onAddEmitter = new EventEmitter();
+
   powers: string[] = ['Really Smart', 'Super Flexible',
             'Super Hot', 'Weather Changer'];
 
@@ -19,7 +20,7 @@ export class HeroAddFormReactiveComponent implements OnInit {
      heroPower: new FormControl(''),
   })
 
-  constructor(private heroService: HeroService,) {}
+  constructor() {}
 
   ngOnInit(): void {
   }
@@ -32,9 +33,7 @@ export class HeroAddFormReactiveComponent implements OnInit {
     const name = this.heroAddForm.value.heroName?.trim();
     const power = this.heroAddForm.value.heroPower?.trim();
     if (!name) { return; }
-    this.heroService.addHero({ name, power} as IHero).subscribe(hero => {
-      this.heroes?.push(hero)
-    });
+    this.onAddEmitter.emit({ name, power} as IHero);
   }
 
   reset(): void {
