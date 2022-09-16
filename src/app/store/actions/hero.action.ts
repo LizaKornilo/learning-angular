@@ -10,6 +10,8 @@ export enum EHeroAction {
   UpdateHeroSuccess = '[Hero] Update Hero Success',
   AddHero = '[Hero] Add Hero',
   AddHeroSuccess = '[Hero] Add Hero Success',
+  DeleteHero = '[Hero] Delete Hero',
+  DeleteHeroSuccess = '[Hero] Delete Hero Success',
 }
 
 export class GetHeroes implements Action {
@@ -51,7 +53,18 @@ export class AddHeroSuccess implements Action {
   constructor(public payload: IHero) {}
 }
 
+export class DeleteHero implements Action {
+  public readonly type = EHeroAction.DeleteHero;
+  constructor(public payload: number) {}
+}
+
+export class DeleteHeroSuccess implements Action {
+  public readonly type = EHeroAction.DeleteHeroSuccess;
+  constructor(public payload: number) {}
+}
+
 export type HeroActions = GetHeroes | GetHeroesSuccess
   | GetCurrentHero | GetCurrentHeroSuccess
   | UpdateHero | UpdateHeroSuccess
-  | AddHero | AddHeroSuccess;
+  | AddHero | AddHeroSuccess
+  | DeleteHero | DeleteHeroSuccess;

@@ -6,7 +6,7 @@ import {ActivatedRoute} from "@angular/router";
 import {select, Store} from "@ngrx/store";
 import {IAppState} from "../../store/state/app.state";
 import {selectHeroList} from "../../store/selectors/hero.selector";
-import {GetHeroes} from "../../store/actions/hero.action";
+import {AddHero, DeleteHero, GetHeroes} from "../../store/actions/hero.action";
 
 @Component({
   selector: 'app-hero-list',
@@ -36,17 +36,12 @@ export class HeroListComponent implements OnInit {
     );
   }
 
-  add(name: string, power: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.heroService.addHero({ name, power} as IHero).subscribe(hero => {
-      this.heroes?.push(hero)
-    });
+  add(hero: IHero): void {
+    this._store.dispatch(new AddHero(hero))
   }
 
   delete(hero: IHero): void {
-    this.heroes = this.heroes?.filter(h => h !== hero);
-    this.heroService.deleteHero(hero.id).subscribe();
+    this._store.dispatch(new DeleteHero(hero.id))
   }
 
   ngOnDestroy() {

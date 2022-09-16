@@ -1,10 +1,7 @@
 
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {IHero} from "../IHero";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Store} from "@ngrx/store";
-import {IAppState} from "../../store/state/app.state";
-import {AddHero} from "../../store/actions/hero.action";
 
 @Component({
   selector: 'app-hero-add-form-reactive',
@@ -12,7 +9,9 @@ import {AddHero} from "../../store/actions/hero.action";
   styleUrls: ['./hero-add-form-reactive.component.css']
 })
 export class HeroAddFormReactiveComponent implements OnInit {
-  @Input() heroes?: IHero[];
+  @Output('onAdd')
+  onAddEmitter = new EventEmitter();
+
   powers: string[] = ['Really Smart', 'Super Flexible',
             'Super Hot', 'Weather Changer'];
 
@@ -21,7 +20,7 @@ export class HeroAddFormReactiveComponent implements OnInit {
      heroPower: new FormControl(''),
   })
 
-  constructor(private _store: Store<IAppState>) {}
+  constructor() {}
 
   ngOnInit(): void {
   }
@@ -34,7 +33,7 @@ export class HeroAddFormReactiveComponent implements OnInit {
     const name = this.heroAddForm.value.heroName?.trim();
     const power = this.heroAddForm.value.heroPower?.trim();
     if (!name) { return; }
-    this._store.dispatch(new AddHero({ name, power} as IHero))
+    this.onAddEmitter.emit({ name, power} as IHero);
   }
 
   reset(): void {

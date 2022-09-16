@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {concatMap, map, switchMap} from "rxjs/operators";
+import {concatMap, map, mergeMap, switchMap} from "rxjs/operators";
 import {catchError, EMPTY, Observable} from 'rxjs'
 import {
-  AddHero, AddHeroSuccess,
+  AddHero, AddHeroSuccess, DeleteHero, DeleteHeroSuccess,
   EHeroAction,
   GetCurrentHero,
   GetCurrentHeroSuccess,
@@ -58,6 +58,18 @@ export class HeroEffects {
       concatMap((actionData: { payload: IHero }) => {
         return this._heroService.addHero(actionData.payload).pipe(
           map(() => new AddHeroSuccess(actionData.payload)),
+          catchError(error => EMPTY)
+        )
+      })
+    )
+  })
+
+  deleteHero$ = createEffect((): Observable<HeroActions> => {
+    return this._actions$.pipe(
+      ofType<DeleteHero>(EHeroAction.DeleteHero),
+      mergeMap((actionData: { payload: number }) => {
+        return this._heroService.deleteHero(actionData.payload).pipe(
+          map(() => new DeleteHeroSuccess(actionData.payload)),
           catchError(error => EMPTY)
         )
       })

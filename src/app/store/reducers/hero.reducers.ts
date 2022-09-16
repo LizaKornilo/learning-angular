@@ -34,9 +34,17 @@ export const heroReducers = (
     case EHeroAction.AddHeroSuccess: {
       return {
         ...state,
-        heroes: state.heroes
+        heroes: state.heroes && state.heroes.length
           ? [...state.heroes, { ...action.payload, id: state.heroes[state.heroes.length - 1].id + 1}]
           : [{...action.payload, id: 1}],
+      };
+    }
+    case EHeroAction.DeleteHeroSuccess: {
+      return {
+        ...state,
+        heroes: state.heroes
+          ? state.heroes?.filter(hero => hero.id !== action.payload)
+          : null,
       };
     }
 
