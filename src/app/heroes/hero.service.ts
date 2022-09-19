@@ -5,9 +5,7 @@ import {MessageService} from "../message.service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {API_BASE_URL} from "../app.module";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class HeroService {
   private heroesUrl = '/heroes';  // URL to web api
   httpOptions = {
