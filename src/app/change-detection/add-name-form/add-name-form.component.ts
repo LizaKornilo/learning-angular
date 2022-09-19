@@ -1,9 +1,10 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-add-name-form',
   templateUrl: './add-name-form.component.html',
   styleUrls: ['./add-name-form.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddNameFormComponent implements OnInit {
   inputValue: string = '';
