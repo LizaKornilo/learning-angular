@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -14,6 +15,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ComposeMessageComponent } from './compose-message/compose-message.component';
 import {AuthModule} from "./auth/auth.module";
 import {NgxFormlyFormModule} from "./ngx-formly-form/ngx-formly-form.module";
+
+export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 @NgModule({
   declarations: [
@@ -36,7 +39,7 @@ import {NgxFormlyFormModule} from "./ngx-formly-form/ngx-formly-form.module";
 
     NgxFormlyFormModule,
   ],
-  providers: [],
+  providers: [{ provide: API_BASE_URL, useValue: 'api' }],
   bootstrap: [AppComponent]
 })
 export class AppModule  {}
