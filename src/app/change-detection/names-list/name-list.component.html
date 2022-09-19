@@ -1,0 +1,7 @@
+<ul *ngIf="names?.length; else elseBlock">
+  <li *ngFor="let n of names">{{n}}</li>
+</ul>
+
+<ng-template #elseBlock>
+  <div>List of names is empty</div>
+</ng-template>

@@ -5,13 +5,13 @@
   <a class="button" routerLink="/crisis-center" routerLinkActive="activebutton">Crisis Center</a>
   <a class="button" routerLink="/admin" routerLinkActive="active" ariaCurrentWhenActive="page">Admin</a>
   <a class="button" [routerLink]="[{ outlets: { popup: ['compose'] } }]">Contact</a>
+  <a class="button" routerLink="/formly-form">Formly form</a>
+  <a class="button" routerLink="/change-detection">Change Detection</a>
 
 </nav>
 <div [@routeAnimation]="getAnimationData()">
   <router-outlet></router-outlet>
 </div>
 <router-outlet name="popup"></router-outlet>
-
-<app-ngx-formly-form></app-ngx-formly-form>
 
 <!--  <app-messages></app-messages>-->
