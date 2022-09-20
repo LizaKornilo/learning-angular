@@ -1,0 +1,19 @@
+:host {
+  height: calc(100vh - 104px - 32px);
+  margin: 16px;
+  display: block;
+}
+
+.list {
+  height: 100%;
+  width: 400px;
+  margin: 0 auto;
+}
+
+.item {
+  min-height: 60px;
+  max-height: 100px;
+  overflow: hidden;
+  border: #2c3a41 1px solid;
+  margin-bottom: 16px;
+}

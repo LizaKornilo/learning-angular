@@ -1,0 +1,5 @@
+<cdk-virtual-scroll-viewport itemSize="100" class="list">
+  <mat-card *cdkVirtualFor="let item of list" class="item">
+    <mat-card-content>{{item}}</mat-card-content>
+  </mat-card>
+</cdk-virtual-scroll-viewport>

@@ -16,6 +16,7 @@ import {AuthModule} from "./auth/auth.module";
 import {NgxFormlyFormModule} from "./ngx-formly-form/ngx-formly-form.module";
 import {ChangeDetectionModule} from "./change-detection/change-detection.module";
 import {KanbanBoardModule} from "./kanban-board/kanban-board.module";
+import {VirtualScrollerModule} from "./virtual-scroller/virtual-scroller.module";
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {KanbanBoardModule} from "./kanban-board/kanban-board.module";
     NgxFormlyFormModule,
     ChangeDetectionModule,
     KanbanBoardModule,
+    VirtualScrollerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
