@@ -15,6 +15,7 @@ import { ComposeMessageComponent } from './compose-message/compose-message.compo
 import {AuthModule} from "./auth/auth.module";
 import {NgxFormlyFormModule} from "./ngx-formly-form/ngx-formly-form.module";
 import {ChangeDetectionModule} from "./change-detection/change-detection.module";
+import {KanbanBoardModule} from "./kanban-board/kanban-board.module";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {ChangeDetectionModule} from "./change-detection/change-detection.module"
     BrowserAnimationsModule,
 
     NgxFormlyFormModule,
-    ChangeDetectionModule
+    ChangeDetectionModule,
+    KanbanBoardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

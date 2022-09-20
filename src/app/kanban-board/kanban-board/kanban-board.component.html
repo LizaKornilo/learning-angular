@@ -1,1 +1,24 @@
-<p>kanban-board works!</p>
+<div class="board" cdkDropListGroup>
+  <div class="column" *ngFor="let status of todos">
+
+    <div class="list-header">
+      <div class="list-title">{{status.name}}</div>
+      <div class="todo-count">{{status.todos.length}}</div>
+    </div>
+
+    <div
+      class="list"
+      cdkDropList
+      [cdkDropListData]="status.todos"
+      (cdkDropListDropped)="drop($event)"
+    >
+        <mat-card
+          class="item"
+          cdkDrag
+          *ngFor="let item of status.todos"
+        >
+          <mat-card-content>{{item.title}}</mat-card-content>
+        </mat-card>
+    </div>
+  </div>
+</div>
