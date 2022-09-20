@@ -8,6 +8,8 @@ import {AuthGuard} from "./auth/auth.guard";
 import {SelectivePreloadingStrategyService} from "./selective-preloading-strategy.service";
 import {ChangeDetectionComponent} from "./change-detection/change-detection/change-detection.component";
 import {NgxFormlyFormComponent} from "./ngx-formly-form/ngx-formly-form.component";
+import {KanbanBoardComponent} from "./kanban-board/kanban-board/kanban-board.component";
+import {VirtualScrollerComponent} from "./virtual-scroller/virtual-scroller/virtual-scroller.component";
 
 const routes: Routes = [
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canLoad: [AuthGuard]},
@@ -17,6 +19,8 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'formly-form', component: NgxFormlyFormComponent },
   { path: 'change-detection', component: ChangeDetectionComponent },
+  { path: 'kanban-board', component: KanbanBoardComponent },
+  { path: 'virtual-scroller', component: VirtualScrollerComponent },
   // { path: '404', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent }
 ];
