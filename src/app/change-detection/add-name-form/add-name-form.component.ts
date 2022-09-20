@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'app-add-name-form',
@@ -6,16 +6,11 @@ import {ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output} from '
   styleUrls: ['./add-name-form.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddNameFormComponent implements OnInit {
-  inputValue: string = '';
-
+export class AddNameFormComponent {
   @Output('onAdd')
   onAddEmitter = new EventEmitter();
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  inputValue: string = '';
 
   onAdd() {
     this.onAddEmitter.emit(this.inputValue);

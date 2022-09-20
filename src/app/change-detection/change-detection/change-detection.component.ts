@@ -6,13 +6,8 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
   styleUrls: ['./change-detection.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChangeDetectionComponent implements OnInit {
+export class ChangeDetectionComponent {
   names: string[] = [];
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   add(name: string): void {
     if (name) {

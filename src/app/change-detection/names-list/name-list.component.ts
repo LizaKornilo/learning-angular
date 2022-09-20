@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-name-list',
@@ -6,12 +6,6 @@ import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./name-list.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NameListComponent implements OnInit {
+export class NameListComponent {
   @Input() names?: string[]
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }
