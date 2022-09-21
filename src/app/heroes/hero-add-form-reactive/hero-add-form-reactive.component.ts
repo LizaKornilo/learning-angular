@@ -1,5 +1,4 @@
-
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {HeroService} from "../hero.service";
 import {IHero} from "../IHero";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -9,7 +8,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   templateUrl: './hero-add-form-reactive.component.html',
   styleUrls: ['./hero-add-form-reactive.component.css']
 })
-export class HeroAddFormReactiveComponent implements OnInit {
+export class HeroAddFormReactiveComponent {
   @Input() heroes?: IHero[];
   powers: string[] = ['Really Smart', 'Super Flexible',
             'Super Hot', 'Weather Changer'];
@@ -20,9 +19,6 @@ export class HeroAddFormReactiveComponent implements OnInit {
   })
 
   constructor(private heroService: HeroService,) {}
-
-  ngOnInit(): void {
-  }
 
   log(): void {
     console.log('formGroup info: ', this.heroAddForm)

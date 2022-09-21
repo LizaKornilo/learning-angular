@@ -21,8 +21,6 @@ export class CrisisListComponent implements OnInit {
                private crisisService: CrisisService) { }
 
   ngOnInit(): void {
-    // this.selectedId  = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
-    // this.getCrises();
     this.crises$ = this.route.paramMap.pipe(
       switchMap(params => {
         this.selectedId = parseInt(params.get('id')!, 10);
@@ -31,9 +29,4 @@ export class CrisisListComponent implements OnInit {
     );
     this.crises$.subscribe(crises => this.crises = crises)
   }
-
-  // getCrises(): void {
-  //   this.crisisService.getCrises()
-  //       .subscribe(crises => this.crises = crises);
-  // }
 }

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {IHero} from "../IHero";
 import {HeroService} from "../hero.service";
-import {merge, Observable, of, Subject, switchMap} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-hero-list',
@@ -12,8 +10,7 @@ import {ActivatedRoute} from "@angular/router";
 export class HeroListComponent implements OnInit {
   heroes?: IHero[];
 
-  constructor(private heroService: HeroService,
-              private route: ActivatedRoute) { }
+  constructor(private heroService: HeroService) { }
 
   ngOnInit(): void {
     this.getHeroes();

@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeroAddFormReactiveComponent } from './hero-add-form-reactive.component';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HeroesModule} from "../heroes.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('HeroAddFormComponent', () => {
   let component: HeroAddFormReactiveComponent;
@@ -8,7 +12,14 @@ describe('HeroAddFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HeroAddFormReactiveComponent ]
+      declarations: [ HeroAddFormReactiveComponent ],
+      imports: [
+        HttpClientTestingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HeroesModule,
+        BrowserAnimationsModule,
+      ],
     })
     .compileComponents();
 
