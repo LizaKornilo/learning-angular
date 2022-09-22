@@ -31,4 +31,18 @@ describe('HeroAddFormComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // it('#log should log to console', () => {
+  //   component.log()
+  // });
+
+  // it('#add should return', () => {
+  //   component.add()
+  // });
+
+  it('#submit should call add and reset methods', () => {
+    component.submit()
+    expect(component.add).toBeDefined();
+    expect(component.reset).toBeDefined();
+  });
 });
