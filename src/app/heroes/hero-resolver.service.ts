@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from "@angular/router";
+import {ActivatedRouteSnapshot, Resolve} from "@angular/router";
 import {IHero} from "./IHero";
 import {Observable} from "rxjs";
 import {HeroService} from "./hero.service";
@@ -11,7 +11,7 @@ export class HeroResolverService implements Resolve<IHero>{
 
   constructor(private HeroService: HeroService) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IHero> | Promise<IHero> | IHero {
+  resolve(route: ActivatedRouteSnapshot): Observable<IHero> {
     return this.HeroService.getHero(Number(route.paramMap.get('id')))
   }
 
