@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   Router, Resolve,
-  RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of, EMPTY } from 'rxjs';
@@ -16,7 +15,7 @@ import { Crisis } from './crisis';
 export class CrisisDetailResolverService implements Resolve<Crisis> {
   constructor(private cs: CrisisService, private router: Router) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Crisis> | Observable<never> {
+  resolve(route: ActivatedRouteSnapshot): Observable<Crisis> {
     const id = Number(route.paramMap.get('id'));
 
     return this.cs.getCrisis(id).pipe(
@@ -25,7 +24,7 @@ export class CrisisDetailResolverService implements Resolve<Crisis> {
           return of(crisis);
         } else { // id not found
 
-          this.router.navigate(['/crisis-center']);
+          // this.router.navigate(['/crisis-center']);
           return EMPTY;
         }
       })
